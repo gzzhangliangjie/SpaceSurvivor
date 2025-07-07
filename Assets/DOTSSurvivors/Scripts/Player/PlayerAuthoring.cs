@@ -319,7 +319,6 @@ namespace Lemo.SpaceSurvivors
             state.RequireForUpdate<GameEntityTag>();
         }
 
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
