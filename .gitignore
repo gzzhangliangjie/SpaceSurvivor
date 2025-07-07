@@ -1,0 +1,58 @@
+# Unity 项目常用忽略列表
+# ---------------------------------
+# 以下文件或文件夹通常由 Unity 或操作系统自动生成，
+# 不应提交到版本控制系统中。
+
+# Unity 生成的缓存和临时文件夹
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+MemoryCaptures/
+
+# 用户本地设置
+UserSettings/
+
+# Visual Studio / Rider 等 IDE 生成的文件
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+
+# Windows、macOS 系统文件
+Thumbs.db
+.DS_Store
+
+# 编译输出
+*.exe
+*.dll
+*.pdb
+*.mdb
+*.ilk
+*.obj
+*.lib
+*.log
+
+# 包管理器锁文件（如果不想锁定可忽略）
+#Packages/packages-lock.json
+
+# 其他常见临时文件
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+
+# Crash 相关
+sysinfo.txt
+
+# 结束 

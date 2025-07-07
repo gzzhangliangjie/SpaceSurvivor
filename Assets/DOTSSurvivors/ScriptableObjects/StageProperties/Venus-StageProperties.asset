@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15aca4d3bc35423d9b8e09ac0b586bb8, type: 3}
+  m_Name: Venus-StageProperties
+  m_EditorClassIdentifier: 
+  StageName: "\u91D1\u661F"
+  StageID: 8
+  StageDescription: "\u91D1\u661F\u5DF2\u53D8\u6210\u4E00\u7247\u7E41\u8302\u7684\u4E1B\u6797\uFF0C\u8083\u6E05\u654C\u5BF9\u52BF\u529B\uFF0C\u770B\u770B\u4EBA\u7C7B\u751F\u547D\u662F\u5426\u5728\u90A3\u91CC\u53EF\u884C\u3002"
+  UnlockCost: 2000
+  SceneIndex: 3
+  PreviewSprite: {fileID: 21300000, guid: 4b15050d96666451ca3038f7b6fb8be2, type: 3}
+  EnemySpawnWaves:
+  - {fileID: 11400000, guid: f37fc205751b43c4491b3a817a35a7fd, type: 2}
+  - {fileID: 11400000, guid: c6e943590f9c637428813cc290d5462a, type: 2}
+  - {fileID: 11400000, guid: 96d915cefe23f7443bb248995c58c637, type: 2}
+  - {fileID: 11400000, guid: 7f294251d8dbf6845905b996117916b9, type: 2}
+  - {fileID: 11400000, guid: 7fb4d45f2e406794ba56e596d94991c9, type: 2}
+  - {fileID: 11400000, guid: 064b7648fa8d7e64187889508c0a07eb, type: 2}
+  - {fileID: 11400000, guid: a1c9c7ac98bb7bc469302c1172628a02, type: 2}
+  - {fileID: 11400000, guid: 38ee5b44b3b519c468f359667bbef601, type: 2}
+  - {fileID: 11400000, guid: 9a765363d2081b64dab6a92b41509c73, type: 2}
+  - {fileID: 11400000, guid: 75914ae6c4450104db66b55727107f0a, type: 2}
+  - {fileID: 11400000, guid: 83a4f1c0c9507c243bba833a4d4308cf, type: 2}
+  - {fileID: 11400000, guid: 015acf3d7828ea74692d660e14964c62, type: 2}
+  - {fileID: 11400000, guid: 2da4c046237947846bc605587c22737b, type: 2}
+  - {fileID: 11400000, guid: ad3436fa07713a64ca031941f59e3af8, type: 2}
+  - {fileID: 11400000, guid: 34eea968e4c5e294a8beed9c51c04dc3, type: 2}
+  - {fileID: 11400000, guid: 591b4bcad347d23448d740b63932bbfa, type: 2}
+  - {fileID: 11400000, guid: b050d6e47a950494fa51d467bb426690, type: 2}
+  - {fileID: 11400000, guid: 64fb3bed912b6fd41b2708116e543840, type: 2}
+  - {fileID: 11400000, guid: 6b5a06577c5766042b8f868704ea85e7, type: 2}
+  - {fileID: 11400000, guid: fa3714ab8818eb541adab4169dabb8cb, type: 2}
+  WaveInterval: 60
+  FinalBossType: 42

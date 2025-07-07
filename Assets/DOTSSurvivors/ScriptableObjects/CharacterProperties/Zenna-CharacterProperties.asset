@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed83543d07f1440baf5ab287019e2211, type: 3}
+  m_Name: Zenna-CharacterProperties
+  m_EditorClassIdentifier: 
+  CharacterName: Zenna
+  CharacterID: 32
+  CharacterSprite: {fileID: 21300000, guid: 14de515664874484794ce43e989e9bce, type: 3}
+  SpaceAgencyProperties: {fileID: 11400000, guid: 3f3305e9eb3184a499f1eb079b93b764, type: 2}
+  BuffDescription: "\u4E00\u4F4D\u7ECF\u9A8C\u4E30\u5BCC\u7684\u81EA\u6211\u63A2\u7D22\u8005\uFF0C\u968F\u65F6\u51C6\u5907\u8E0F\u8DB3\u6700\u504F\u8FDC\u7684\u5730\u533A\u5C55\u5F00\u4E00\u573A\u5192\u9669\u3002"
+  UnlockCost: 100
+  HitPoints: 100
+  StatOverrides:
+  - Type: 9
+    Value: 0.15
+  - Type: 4
+    Value: 0.25
+  StartingWeapon: {fileID: 11400000, guid: a0cfc811b02f3544bbd3dac33ac602b2, type: 2}
+  CharacterMaterial: {fileID: 2100000, guid: 5626a36882734d445ae73d261e8eadf1, type: 2}
