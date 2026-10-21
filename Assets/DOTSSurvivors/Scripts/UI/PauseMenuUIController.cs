@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMG.DOTSSurvivors;
 using UnityEngine.UI;
 
 namespace Lemo.SpaceSurvivors

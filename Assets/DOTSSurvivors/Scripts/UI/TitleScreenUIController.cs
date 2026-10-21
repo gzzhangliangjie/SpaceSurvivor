@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.InputSystem;
+using TMG.DOTSSurvivors;
 
 #if UNITY_EDITOR
 using UnityEditor;

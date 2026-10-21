@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Lemo.SpaceSurvivors
+namespace TMG.DOTSSurvivors
 {
     /// <summary>
     /// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/DOTSSurvivors/Scripts/Input/DOTSSurvivorsInputActions.inputactions".
@@ -74,7 +74,7 @@ namespace Lemo.SpaceSurvivors
     /// }
     /// </code>
     /// </example>
-    public partial class @DOTSSurvivorsInputActions : IInputActionCollection2, IDisposable
+    public partial class @DOTSSurvivorsInputActions: IInputActionCollection2, IDisposable
     {
         /// <summary>
         /// Provides access to the underlying asset instance.

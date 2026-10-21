@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Physics.GraphicsIntegration;
 using Object = UnityEngine.Object;
+using TMG.DOTSSurvivors;
 
 namespace Lemo.SpaceSurvivors
 {
