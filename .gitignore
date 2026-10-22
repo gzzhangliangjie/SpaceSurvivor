@@ -134,3 +134,6 @@ InitTestScene*.unity*
 # （Assets/SceneDependencyCache/*.sceneWithBuildSettings，Unity 自动生成）。
 # 这里不反向放行，以免让后续 clone 的人拿到一份"忽略规则与仓库内容不一致"的矛盾状态；
 # 是否从仓库中删除这 9 个文件，作为单独一次清理提交处理。
+
+# WorkBuddy Agent 会话数据，不进仓库
+.workbuddy/
