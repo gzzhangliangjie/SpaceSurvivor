@@ -137,3 +137,6 @@ InitTestScene*.unity*
 
 # WorkBuddy Agent 会话数据，不进仓库
 .workbuddy/
+
+# 本地凭据（scripts/push-all.sh 使用），绝不入库
+.env
