@@ -1,74 +1,63 @@
-# SpaceSurvivor GitHub → Gitee 自动同步配置
+# SpaceSurvivor GitHub → Gitee 同步说明
 
-仓库：`https://github.com/gzzhangliangjie/SpaceSurvivor`（默认分支 `main`）
-方案：GitHub Actions 单向同步（GitHub 为唯一源头）+ 本地双 push 兜底。
+- 源仓库：`https://github.com/gzzhangliangjie/SpaceSurvivor`（默认分支 `main`，唯一源头）
+- 镜像仓库：`https://gitee.com/gzzhangliangjie/SpaceSurvivor`（只读镜像）
+- 当前同步方式：**本地 `git push` 到 Gitee**（GitHub Actions 方案已弃用，原因见文末）
 
-## 第一步：在 Gitee 建空仓库（手动，1 分钟）
-
-1. 打开 https://gitee.com/projects/new
-2. 仓库名填 `SpaceSurvivor`（和 GitHub 保持一致，workflow 里会用到同名仓库）
-3. **不要勾选**「使用 Readme 初始化」——必须是空仓库
-4. 开源/私有按需选择，创建即可
-
-## 第二步：生成 Gitee 私人令牌
+## 一次性准备：Gitee 私人令牌
 
 1. 打开 https://gitee.com/profile/personal_access_tokens
 2. 「生成新令牌」，勾选 `projects` 权限即可
-3. **令牌只显示一次**，复制保存好
+3. 令牌只显示一次，复制保存
 
-## 第三步：给 GitHub 仓库配置 Secrets
+首次推送会提示输入 Gitee 账号和令牌，Windows 凭据管理器记住后会一直复用。
 
-打开 `https://github.com/gzzhangliangjie/SpaceSurvivor/settings/secrets/actions`，新建两个 secret：
+## 日常用法
 
-| Name | 值 |
-|---|---|
-| `GITEE_USER` | 你的 Gitee 用户名（登录名） |
-| `GITEE_TOKEN` | 第二步生成的私人令牌 |
+### 方式 A：独立 remote（推荐，最不容易出错）
 
-## 第四步：提交 workflow 并推送
-
-workflow 文件已放在仓库的 `.github/workflows/sync-to-gitee.yml`，本文档位于 `docs/GitHub-Gitee-同步配置.md`。提交推送即可：
+本地仓库已配置好独立的 `gitee` remote，`origin` 保持只推 GitHub：
 
 ```bash
-git add .github/workflows/sync-to-gitee.yml docs/GitHub-Gitee-同步配置.md
-git commit -m "ci: add sync-to-gitee workflow"
-git push
+# 全量镜像：分支、tag 全部与 GitHub 对齐，Gitee 上多余引用会被删除
+git push gitee --mirror
+
+# 只推当前分支（日常够用，不会动 Gitee 上的其他分支）
+git push gitee main
 ```
 
-推上去之后，这次 push 本身就会触发第一次同步。也可以去 Actions 页面点 `Sync to Gitee` → `Run workflow` 手动跑一次验证。
+首次必须用 `--mirror` 把完整历史灌上去（约 154 MB），之后都是增量，几秒到几十秒。
 
-## 第五步：配置本地双 push 兜底
+### 方式 B：origin 双 push（一条命令推两边）
 
-在你的 SpaceSurvivor 本地仓库里执行（原 GitHub 推送地址是什么就用什么）：
+注意 `set-url --add --push` 是「追加」不是「替换」。本仓库 `origin` 已有一条 push 地址，所以第一条要用不带 `--add` 的 `set-url --push` 重写，否则 GitHub 会被推两遍：
 
 ```bash
-# 先看当前推送地址
-git remote -v
-
-# 追加两个 push 地址（fetch 地址保持不变）
-git remote set-url --add --push origin https://github.com/gzzhangliangjie/SpaceSurvivor.git
-git remote set-url --add --push origin https://gitee.com/<Gitee用户名>/SpaceSurvivor.git
-
-# 验证：origin 的 push 地址应显示两行
-git remote -v
+git remote set-url --push origin https://gzzhangliangjie@github.com/gzzhangliangjie/SpaceSurvivor.git
+git remote set-url --add --push origin https://gzzhangliangjie@gitee.com/gzzhangliangjie/SpaceSurvivor.git
+git remote -v   # 应恰好两行 push：GitHub + Gitee
 ```
 
-之后 `git push` 会同时推两边。Gitee 的 HTTPS 推送需要账号密码或令牌认证，配一次凭据管理器即可。
+副作用：
 
-注意：本机直连 github.com 曾出现证书问题；如果本地推 GitHub 失败，直接推 Gitee 那条不受影响，GitHub 侧下次用能通的渠道推即可，Actions 会把 Gitee 拉齐。
+- 双 push 是**串行**的，Gitee 那条失败会让 `git push` 整体返回非 0，但 GitHub 那条其实已经成功——别看到红字就以为两边都没上去。
+- 以后每条命令都会同时推两边，想临时只推 GitHub 得用 `git push <github-url> main`。
 
-## 行为说明
+## 关键约束
 
-- 每次对 GitHub 的 push（任意分支、任意 tag）都会触发一次全量镜像同步，几秒到几分钟完成
-- 删除 GitHub 上的分支/tag，Gitee 上也会同步删除（每次全新裸克隆 + `--mirror`）
-- Gitee 是只读镜像：**不要在 Gitee 上直接提交**，否则会被下次同步覆盖
-- Issue / PR / Star / Release 不在同步范围内（git 层面同步不了这些）
+- **Gitee 是覆盖式镜像，不是对等副本。** 只在 Gitee 上存在的提交，会在下一次镜像推送时被 GitHub 的状态强行覆盖（`--mirror` 会重置 ref）。所以不要在 Gitee 网页上直接改文件或提交。
+- 仓库里最大单文件 41.8 MB（`Assets/DOTSSurvivors/Art/Audio/Music`），Gitee 免费版限制是单文件 100 MB / 仓库 500 MB，目前都还有余量，但再往里塞大音频要留意。
+- Issue / PR / Star / Release 不在 git 同步范围内。
 
-## 常见问题
+## 为什么弃用了 GitHub Actions 方案
 
-| 现象 | 处理 |
-|---|---|
-| Actions 报 403 推 Gitee | 检查 `GITEE_TOKEN` 是否勾了 `projects` 权限、用户名是否为登录名 |
-| 同步后 Gitee 多出分支 | 正常，之前手动推过的残留，mirror 会清理 |
-| 仓库超过 500MB / 单文件超 100MB | Gitee 免费版会拒绝，需先清理或用 LFS（Gitee LFS 免费容量很小） |
-| Actions 排队没跑 | 手动 `Run workflow` 兜底；本地双 push 本来就不依赖 Actions |
+原方案是 `.github/workflows/sync-to-gitee.yml`：每次 push 时 GitHub runner 裸克隆整个仓库，再 `git push --mirror` 到 Gitee。
+
+实测结果：首次同步跑到 **57 分钟仍无任何进展**，Gitee 侧 ref 数为 0，同一时刻本机 `git ls-remote` 却是秒回（说明 Gitee 服务正常）。判断为 GitHub runner → Gitee 的跨境 HTTPS 连接被挂起：git 不设应用层超时，连接挂住后既不报错也不结束，而 Actions 的 job 总超时是 6 小时。
+
+核心矛盾是**首次要跨境传 154 MB 全量包**（音乐、字体、PDF 占大头）。改用本地推送后，这一步走的是国内到 Gitee 的链路，几分钟完成。
+
+如果以后又想要自动化（比如会在 GitHub 网页上改文件、合并 PR），可以恢复 workflow，但务必同时做两件事：
+
+1. 用本地推送先把 Gitee 的基座灌满，避免首次全量传输；
+2. 给 job 加 `timeout-minutes: 20`，让挂起变成可见的失败，而不是干等 6 小时。
